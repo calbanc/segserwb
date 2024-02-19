@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Nueva Zona</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form #zoneregisterform="ngForm">
+    <div class="container">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-item>
+                <ion-label>Clientes</ion-label>
+                <ion-select name="clien" #clien="ngModel" [(ngModel)]="zonas.IDCLIENT" label="Selecciona Cliente" label-placement="floating" fill="outline" okText="Seleccionar" cancelText="Cancelar" required>
+                  <ion-select-option *ngFor="let cli of clientes" value="{{cli.ID}}">{{cli.NAME}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+          </ion-col>
+          <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+            <ion-input name="nombre" #nombre="ngModel" [(ngModel)]="zonas.NAME" type="text" placeholder="Ingrese Nombre de Zona" label="Nombre" label-placement="floating" fill="outline" mode="md" required></ion-input>
+          </ion-col>
+          <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
+            <ion-button (click)="registrar(zoneregisterform)" expand="block" fill="solid" color="success" [disabled]="zoneregisterform.invalid" >
+              Registrar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </form>
+</ion-content>

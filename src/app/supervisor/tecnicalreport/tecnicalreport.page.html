@@ -1,0 +1,179 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Informe tecnico de Rondas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="3">
+        <ion-datetime-button datetime="datetime" ></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime  [showDefaultButtons]="true" doneText="Seleccionar" cancelText="Cancelar" id="datetime" presentation="date"  [showDefaultTitle]="true"  (ionChange)="fecha($event)"  >
+              <span slot="title">Selecciona Fecha</span>
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+      <ion-col size="9">
+        <ion-item>
+          <ion-label>Cliente</ion-label>
+          <ion-select   name="clien" #clien="ngModel" [(ngModel)]="guardia.IDCLIENT" label="Selecciona Cliente" label-placement="floating" fill="outline" okText="Seleccionar" cancelText="Cancelar" required>
+            <ion-select-option *ngFor="let cli of clients" value="{{cli.ID}}">{{cli.NAME}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button (click)="buscar(2)"  expand="block" fill="solid" shape="round">
+          Mostrar Todos
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+<div id="data-to-export">
+ 
+ 
+  <div class="exportable" >
+    <div class="container ">
+      <div class="row mt-4">
+        <div class="col-12">
+          <h1 class="text-center mt-4 mb-4 ">INFORME TÉCNICO DE RONDAS</h1>
+        </div>
+   
+      </div>
+      <p class="mt-1" >1-Datos Empresa</p>
+      <div class="row">
+        <div class="col-6">
+            <p class="mt-1">Empresa</p>
+        </div>
+        <div class="col-6">
+         <p class="mt-1"> {{nombrecliente}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p class="mt-1">Fecha</p>
+        </div>
+        <div class="col-6">
+          <p class="mt-1">{{datereport}}</p>
+        </div>
+      </div>
+      <p class="mt-1" >2-Reportes de vuelo Drone y rondas</p>
+      <div class="row" >
+        <div class="col-1">
+          <p class="mt-1 text-nowrap">Hora</p>
+        </div>
+        <div class="col-2">
+          <p class="mt-1 text-center">Zona</p>
+        </div>
+        <div class="col-2">
+          <p class="mt-1 text-center">Punto de Control</p>
+        </div>
+        <div class="col-3">
+          <p class="mt-1 text-center">Observacion</p>
+        </div>
+        <div class="col-2">
+          <p class="mt-1 text-center">Tipo Guardia</p>
+        </div>
+        <div class="col-2">
+          <p class="mt-1 text-center">Evidencia Fotografica</p>
+        </div>
+      </div>
+      <div class="cl"></div>
+      <div *ngFor="let data of datos" class="row" >
+
+        <div class="col-1"  style="background-color: white  !important; ">
+          <p class="mt-1 " id="id">{{data.TIME}}</p>  
+        </div>
+        <div class="col-2" style="background-color: white  !important; ">
+        
+            <p class="mt-1 text-center" >{{data.ZONA}}</p>
+        </div>
+        <div class="col-2" style="background-color: white !important; ">
+          <p class="mt-1 text-center">{{data.PUNTOCONTROL}}</p>
+        </div>
+        <div class="col-3" style="background-color: white !important; ">
+          <p class="mt-1 text-center">{{data.OBSERVATION}}</p>
+        </div>
+        <div class="col-2" style="background-color: white !important; ">
+          <p class="mt-1 text-center">{{data.TYPEGUARDIA}}</p>
+        </div>
+        <div class="col-2" style="background-color: white !important; ">
+          <img  src="{{url+data.IDIMAGE+'.png'}}" />
+        </div>
+      </div>
+      <p class="mt-1" >  3.- Recepcion de informe</p>
+      <div class="row">
+        <div class="col-12 " id="realizado">
+          <p class="text-center">
+            Realizado por:
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <p class="text-center">Representante Legal Segser Seguridad S.P.A</p>
+        </div>
+        <div class="col-4">
+          <p class="text-center">Sr Rodrigo Sanchez H</p>
+        </div>
+        <div class="col-4">
+          <p class="text-center">Firma</p>
+        </div>
+        <div class="row">
+          <div class="col-4">
+        
+          </div>
+          <div class="col-4">
+            <p class="text-center">Nombre y Apellido</p>
+          </div>
+          <div class="col-4">
+            <p class="text-center"> <img  src="../../../assets/firma/rodrigo.jpg" /></p>
+          </div>
+        </div>
+
+
+
+      </div>
+      
+      <div class="row">
+        <div class="col-6">
+          <p>Fecha de Entrega</p>
+        </div>
+        <div class="col-6">
+          <p class="mt-1">{{datereport}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-4" style=" background-color:rgb(215, 216, 218) !important ;">
+          <p>-Las situaciones informadas en el presente informe corresponde a aquellas observadas en el monitore de la visita</p>
+
+        </div>
+      </div>
+     
+    </div>
+   
+
+
+    
+  
+  
+  </div>
+
+</div>
+  <div class="container">
+    <ion-button (click)="descargar()"  expand="block" fill="solid" shape="round" color="success">
+      Descargar informe
+    </ion-button>
+  </div>
+ 
+
+</ion-content>

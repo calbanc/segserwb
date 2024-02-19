@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container ">
+    <div class="row text-center">
+       <div class="col-12 col-sm-12 col-md-3 col-lg-3"></div>
+      <div class="principal col-12 col-sm-12 col-md-6 col-lg-6">
+        <form #loginform="ngForm">
+
+          <div id="inicio" >
+            <ion-list >
+              <ion-item>
+                <ion-img
+                src="../../assets/icons/segser.jpg"
+                alt="The Wisconsin State Capitol building in Madison, WI at night"
+              ></ion-img>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Usuario</ion-label>
+                <ion-input  type="text" placeholder="Ingrese Usuario" enterkeyhint="next" [(ngModel)]="usuario.USERNAME"  name="user" #user="ngModel"  required></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Password</ion-label>
+                <ion-input #x enterkeyhint="done" (keyup.enter)="validausuario()" type="password" placeholder="Ingrese Password" [(ngModel)]="usuario.PASSWORD"  name="pass" #pass="ngModel" required></ion-input>
+                <ion-icon (click)="x.type=x.type=='password'?'text':'password'" name="visibility"></ion-icon>
+              </ion-item>
+
+            </ion-list>
+
+            <ion-button expand="block" (click)="validausuario()" color="success" [disabled]="loginform.invalid" >INGRESAR</ion-button>
+
+
+            
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>     &copy; Derechos Reservados Segser</ion-title>
+  </ion-toolbar>
+</ion-footer>

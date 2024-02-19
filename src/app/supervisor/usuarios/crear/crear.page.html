@@ -1,0 +1,66 @@
+<!-- <app-header titulo="Crear Usuario"></app-header>
+ -->
+
+ <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Crear Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content [fullscreen]="true">
+  <form #userregisterform="ngForm">
+    <div class="container">
+
+      <ion-list>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="userr" #userr="ngModel" [(ngModel)]="user.USERNAME"  label="Usuario" label-placement="floating"  type="text" placeholder="Ingrese Usuario" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="pass" #pass="ngModel" [(ngModel)]="user.PASSWORD"  label="Password" label-placement="floating"  type="text" placeholder="Ingrese Password" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="correo" #correo="ngModel" [(ngModel)]="user.EMAIL" label="Email" label-placement="floating"  type="email" placeholder="Ingrese Email" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="nombre" #nombre="ngModel" [(ngModel)]="user.NAME" label="Nombre" label-placement="floating"  type="text" placeholder="Ingrese Nombre" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="apellidopate" #apellidopate="ngModel" [(ngModel)]="user.PRIMARYNAME" label="Apellido Paterno" label-placement="floating"  type="text" placeholder="Ingrese Apellido Paterno" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-input name="apellidomate" #apellidomate="ngModel" [(ngModel)]="user.LASTNAME" label="Apellido Materno" label-placement="floating"  type="text" placeholder="Ingrese Apellido Materno" fill="outline" mode="md" required></ion-input>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-select name="roll" #roll="ngModel" [(ngModel)]="roleselec" label="Selecciona Rol" (ionChange)="checkisclient()" label-placement="floating" fill="outline" okText="Seleccionar" cancelText="Cancelar" required>
+                <ion-select-option *ngFor="let rol of roles" [value]="rol" >{{rol.NAME}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+              <ion-select *ngIf="showclient"  name="clien" #clien="ngModel" [(ngModel)]="user.IDCLIENT" label="Selecciona Cliente" label-placement="floating" fill="outline" okText="Seleccionar" cancelText="Cancelar" required>
+                <ion-select-option *ngFor="let cli of clients" value="{{cli.ID}}">{{cli.NAME}}</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
+              <ion-button (click)="registrar(userregisterform)" expand="block" fill="solid" color="success" [disabled]="userregisterform.invalid" >
+                Registrar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+    </ion-list>
+
+
+  </div>
+
+  </form>
+
+</ion-content>

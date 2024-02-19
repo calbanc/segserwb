@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Listado Puntos de Control</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+ 
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mis Puntos de Control</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item-sliding *ngFor="let us of puntos">
+          <ion-item>
+            <ion-label>
+              <h2>{{us.NAME}}</h2>
+              <h3>Cliente: {{us.client.NAME}}</h3>
+              <h4>Zona: {{us.zona.NAME}}</h4>
+              <h4>Codigo: {{us.CODE}}</h4>
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-button (click)="editarpunto(us)"  color="primary" expand="block" fill="solid" shape="round">
+              <ion-icon slot="start" name="create-sharp"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)="eliminarpunto(us)" color="danger" expand="block" fill="solid" shape="round">
+              <ion-icon slot="start" name="trash-sharp"></ion-icon>
+            </ion-button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

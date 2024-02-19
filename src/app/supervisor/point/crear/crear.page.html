@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Crear Puntos de Control</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ <form #pointregisterform="ngForm">
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-item>
+          
+          <ion-select label="Clientes" name="clientess" #clientess="ngModel" [(ngModel)]="point.IDCLIENT" multiple="false" placeholder="Seleccione Cliente" (ionChange)="getzonebyclient()" required>
+            <ion-select-option *ngFor="let cl of clientes" value="{{cl.ID}}">{{cl.NAME}}</ion-select-option>
+         
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-item>
+         
+          <ion-select label="Zonas"  name="zonsss" #zonsss="ngModel" [(ngModel)]="point.IDZONE" multiple="false" placeholder="Selecciona Zona" required>
+            <ion-select-option *ngFor="let zon of zonas" value="{{zon.ID}}">{{zon.NAME}}</ion-select-option>
+         
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-input type="text" placeholder="Ingrese Nombre del punto" name="nombre" #nombre="ngModel" [(ngModel)]="point.NAME" label="Nombre" label-placement="floating" fill="outline" mode="md" required></ion-input>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-input type="text" placeholder="Ingrese Latitud del punto" name="latitud" #latitud="ngModel" [(ngModel)]="point.LAT" label="Latitud" label-placement="floating" fill="outline" mode="md" required></ion-input>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-input type="text" placeholder="Ingrese Longitud del punto" name="longitud" #longitud="ngModel" [(ngModel)]="point.LONG" label="Longitud" label-placement="floating" fill="outline" mode="md" required></ion-input>
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+        <ion-input type="text" placeholder="Ingrese codigo del punto" name="codigo" #codigo="ngModel" [(ngModel)]="point.CODE" label="Codigo" label-placement="floating" fill="outline" mode="md" required></ion-input>
+      </ion-col>
+      <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
+        <ion-button (click)="registrar(pointregisterform)" expand="block" fill="solid" color="success" [disabled]="pointregisterform.invalid" >
+          Registrar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+ </form>
+  
+</ion-content>

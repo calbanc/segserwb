@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Nuevo Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ <form #clienteregisterform="ngForm">
+  <ion-list>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="nombre" #nombre="ngModel" [(ngModel)]="cliente.NAME" type="text" placeholder="Ingrese Nombre de cliente" label="Nombre" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="direccion" #direccion="ngModel" [(ngModel)]="cliente.ADDRES" type="text" placeholder="Ingrese Direccion de cliente" label="Direccion" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-item>
+            <ion-label>Pais</ion-label>
+            <ion-select name="clinsd" clinsd="ngModel" [(ngModel)]="cliente.COUNTRY" multiple="false" placeholder="Seleccione Pais" name="pais" #pais="ngModel" [(ngModel)]="cliente.COUNTRY" required>
+              <ion-select-option value="CHILE" >Chile</ion-select-option>
+              <ion-select-option value="PERU">Peru</ion-select-option>
+              <ion-select-option value="PERU">Colombia</ion-select-option>
+              <ion-select-option value="PERU">Argentina</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input type="text" placeholder="Ingrese Email" name="email" #email="ngModel" [(ngModel)]="cliente.EMAIL" label="Email" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-item>
+            <ion-label>Ingrese Fecha</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="datetime"  [showDefaultTitle]="true" [showDefaultButtons]="true" doneText="Ok" cancelText="Cancelar" presentation="date" (ionChange)="fecha($event)" required></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+       
+        </ion-col>
+        <ion-col size="12" size-lg="6" size-md="6" size-sm="12">
+          <ion-button (click)="registrar(clienteregisterform)" expand="block" fill="solid" color="success" [disabled]="clienteregisterform.invalid" >
+            Registrar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+ </form>
+</ion-content>

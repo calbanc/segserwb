@@ -1,0 +1,37 @@
+.container{
+  position: relative;
+}
+.principal{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,10%);
+  
+}
+ion-content{
+ /*  --background: rgb(18, 16, 16) url('../../assets/login.png')  no-repeat center top / cover; */
+}
+
+.milabel{
+  font-size:18px;
+  color:white;
+}
+.milabel:hover{
+  cursor: pointer;
+  color: red;
+}
+ion-img::part(image){
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+} 
+
+ion-footer{
+  display: block;
+  margin-left: auto;
+  margin-top: auto;
+  text-align: center;
+}
