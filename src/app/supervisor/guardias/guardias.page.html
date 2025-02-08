@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">GUARDIAS DE SEGURIDAD</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" color="light">
+  <div class="container">
+    <ion-grid>
+      <ion-col size="12">
+        <ion-list [inset]="true">
+          <ion-item *ngFor="let item of guardiass" (click)="abrirmodal(item)">
+            {{item.NAME}} {{item.LASTNAME}}
+          </ion-item>
+        </ion-list>
+
+
+      </ion-col>
+    </ion-grid>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+
+      <ion-fab-button>
+        <ion-icon name="add" (click)="abrirmodal('nuevo')"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab>
+  </div>
+
+</ion-content>

@@ -49,6 +49,16 @@ export class ClientsService {
     return this._http.post(this.url+'clients/searchbycompany',params,{headers:headers});
 
   }
+  
+  getclientbycode(data:Clients):Observable<any>{
+    this.gettoken();
+    let json=JSON.stringify(data);
+    let params="json="+json;
+    let headers=new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded')
+                                .set('Auth',this.token);
+    return this._http.post(this.url+'clients/findclient',params,{headers:headers});
+
+  }
   delete(data:Clients):Observable<any>{
   
     this.gettoken();

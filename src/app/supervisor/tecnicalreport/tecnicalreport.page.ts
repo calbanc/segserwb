@@ -8,6 +8,7 @@ import { GuardsService } from 'src/app/services/guards.service';
 import { LoadingController,AlertController } from '@ionic/angular';
 
 import * as html2pdf  from 'html2pdf.js';
+import { Guardias } from 'src/app/models/Guardias';
 
 @Component({
   selector: 'app-tecnicalreport',
@@ -22,7 +23,9 @@ export class TecnicalreportPage implements OnInit {
   public datos:any;
   public url:string;
   public nombrecliente:any;
-  public datereport:any
+  public datereport:any;
+  public desde:Date|undefined;
+  public hasta:Date|undefined;
   constructor(
     private clientService:ClientsService, 
     private guardiService:GuardsService,
@@ -49,16 +52,20 @@ export class TecnicalreportPage implements OnInit {
       }
     )
   }
-  fecha(e:any){
-    this.guardia.DATE=e.detail.value;
-  }
+  
   async  buscar(e:any){
-    if(this.guardia.IDCLIENT==''||this.guardia.DATE==''){
+    
+      
+      this.guardia.DATE=this.date_TO_String(this.desde);
+      this.guardia.TIME=this.date_TO_String(this.hasta);
+
+
+    if(this.guardia.IDCLIENT==''||this.desde==null||this.hasta==null){
       this.presentAlert('Debe selecionar una fecha y un cliente')
     }else{
-      var message="Mostrando Clientes ...";
+      var message="Mostrando Informe ...";
       const loading=await this.laoadingController.create({
-        message:message,
+        message:message,  
         
       });
       loading.present();
@@ -67,7 +74,7 @@ export class TecnicalreportPage implements OnInit {
       if(e=="2")this.guardia.VALIDADO='TODOS';
       this.guardia.IDCOMPANY=this.idcompany!;
   
-      this.guardiService.serchbycompanyclient(this.guardia).subscribe(
+      this.guardiService.serchbycompanyclientdateaprobados(this.guardia).subscribe(
         response=>{
           loading.dismiss();
           if(response.code=="200"){
@@ -83,7 +90,7 @@ export class TecnicalreportPage implements OnInit {
         }
       )
   
-    }
+    } 
         
 
 
@@ -116,5 +123,54 @@ export class TecnicalreportPage implements OnInit {
     html2pdf().from(element).set(options).save(); 
 
 
+  }
+   date_TO_String(date_Object: Date|undefined): string {
+    // get the year, month, date, hours, and minutes seprately and append to the string.
+    let date_String: string =
+      date_Object!.getFullYear() +
+      "/" +
+      (date_Object!.getMonth() + 1) +
+      "/" +
+      +date_Object!.getDate() +
+      "T" +
+      +date_Object!.getHours() +
+      ":" +
+      +date_Object!.getMinutes();
+    return date_String;
+  }
+ async  notificar(){
+    this.guardia.DATE=this.date_TO_String(this.desde);
+      this.guardia.TIME=this.date_TO_String(this.hasta);
+
+
+    if(this.guardia.IDCLIENT==''||this.desde==null||this.hasta==null){
+      this.presentAlert('Debe selecionar una fecha y un cliente')
+    }else{
+      var message="Mostrando Informe ...";
+      const loading=await this.laoadingController.create({
+        message:message,  
+        
+      });
+      loading.present();
+      this.guardia.VALIDADO='1';
+      this.guardia.IDCOMPANY=this.idcompany!;
+  
+      this.guardiService.sendemail(this.guardia).subscribe(
+        response=>{
+          loading.dismiss();
+          if(response.code=="200"){
+          
+            this.presentAlert('Emails enviados correctamente al cliente')
+  
+          }
+        },error=>{
+          loading.dismiss();
+       
+          this.presentAlert('Error consultando clientes')
+        }
+      )
+  
+    } 
+        
   }
 }

@@ -1,0 +1,201 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">REPORTE TRABAJADOR POR CONTRATISTA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="4">
+
+        <p-dropdown 
+          [options]="clients"
+          [style]="{ width: '325px' }"
+          [(ngModel)]="informe.idcliente" 
+          optionLabel="NAME" 
+          optionValue="ID"
+          placeholder="Selecciona cliente" 
+          variant="filled"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="38"
+          />
+
+
+      </ion-col>
+      <ion-col>
+        <p-calendar 
+    [(ngModel)]="date1" 
+    [showIcon]="true" 
+    [showOnFocus]="false" 
+    inputId="buttondisplay" />
+      </ion-col>
+      <ion-col size="4">
+        <ion-button (click)="mostrartrabajadores()" >Mostrar</ion-button>
+      </ion-col>
+    </ion-row>
+
+    
+  </ion-grid>
+
+  <div class="container">
+    <ion-button (click)="exportExcel()">Excel</ion-button>
+    <p-table #dt [value]="responsetrabajadores"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[5,10, 25, 50,100]"
+     
+    selectionMode="single"
+    styleClass="p-datatable-gridlines" 
+    [paginator]="true"
+    currentPageReportTemplate="Mostrando {first} de {last} hasta {totalRecords} trabajadores"
+    [globalFilterFields]="['id','rut', 'nombre','labor','fecha_ingreso','hora_ingreso','fecha_salida','hora_salida','nombre_conductor','patente']">
+  <ng-template pTemplate="header">
+  <div class="flex">
+  
+  <ion-icon name="cloud-download-outline"></ion-icon>
+  </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+  <tr>
+  <th >
+   <div class="flex align-items-center">
+     Id
+     <p-columnFilter
+       type="text"
+       field="id"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  
+  <th pResizableColumn><div class="flex align-items-center">
+    Rut
+    <p-columnFilter
+      type="text"
+      field="rut"
+      display="menu"
+    ></p-columnFilter>
+   </div></th>
+  <th pResizableColumn><div class="flex align-items-center">
+   Trabajador
+   <p-columnFilter
+     type="text"
+     field="nombre"
+     display="menu"
+   ></p-columnFilter>
+  </div></th>
+  <th pResizableColumn><div class="flex align-items-center">
+    Labor
+    <p-columnFilter
+      type="text"
+      field="labor"
+      display="menu"
+    ></p-columnFilter>
+   </div></th>
+  <th>
+   <div class="flex align-items-center">
+     Fecha Ingreso
+     <p-columnFilter
+       type="text"
+       field="fecha_ingreso"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  <th >
+   <div class="flex align-items-center">
+     Hora Ingreso
+     <p-columnFilter
+       type="text"
+       field="hora_ingreso"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  
+  
+  
+  
+  <th >
+   <div class="flex align-items-center">
+     Fecha Salida
+     <p-columnFilter
+       type="text"
+       field="fecha_salida"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  <th >
+   <div class="flex align-items-center">
+     Hora Salida
+     <p-columnFilter
+       type="text"
+       field="hora_salida"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  <th >
+    <div class="flex align-items-center">
+      Patente
+      <p-columnFilter
+        type="text"
+        field="patente"
+        display="menu"
+      ></p-columnFilter>
+    </div>
+  </th>
+  <th >
+   <div class="flex align-items-center">
+     Conductor
+     <p-columnFilter
+       type="text"
+       field="nombre_conductor"
+       display="menu"
+     ></p-columnFilter>
+   </div>
+  </th>
+  <th >
+  
+  
+  
+  
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-responsetrabajadores>
+  <tr>
+  <td>{{ responsetrabajadores.id}}</td>
+  <td>{{ responsetrabajadores.rut}}</td>
+  <td>{{ responsetrabajadores.nombre}}</td>
+  <td>{{ responsetrabajadores.fecha_ingreso}}</td>
+  <td>{{ responsetrabajadores.hora_ingreso}}</td>
+  <td>{{ responsetrabajadores.patente}}</td>
+  <td>{{ responsetrabajadores.fecha_salida}}</td>
+  <td>{{ responsetrabajadores.hora_salida}}</td>
+  <td>{{ responsetrabajadores.patente}}</td>
+  <td>{{ responsetrabajadores.nombre_conductor}}</td>
+  
+  
+  
+  
+  
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+  <tr>
+  <td colspan="7">Sin trabajadores encontradas</td>
+  </tr>
+  </ng-template>
+  </p-table>
+  </div>
+    
+  
+  
+</ion-content>

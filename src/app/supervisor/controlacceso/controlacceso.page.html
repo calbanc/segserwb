@@ -1,0 +1,194 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">CONTROL DE ACCESO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="3">
+        <ion-datetime-button datetime="datetime" ></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime  [showDefaultButtons]="true" doneText="Seleccionar" cancelText="Cancelar" id="datetime" presentation="date"  [showDefaultTitle]="true"  (ionChange)="fecha($event)"  >
+              <span slot="title">Selecciona Fecha</span>
+            </ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
+      <ion-col size="9">
+        <ion-item>
+          <ion-label>Cliente</ion-label>
+          <ion-select interface="action-sheet"  name="clien" #clien="ngModel" [(ngModel)]="control.IDCLIENT" label="Selecciona Cliente" label-placement="floating" fill="outline" okText="Seleccionar" cancelText="Cancelar" required>
+            <ion-select-option *ngFor="let cli of clients" value="{{cli.ID}}">{{cli.NAME}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button (click)="buscar()"  expand="block" fill="solid" shape="round">
+          Mostrar Todos
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p-panel header="Control de Acceso"  [style]="{width:'70%' , margin:'0 auto'}" >
+    <p-table #dt [value]="controles"
+             dataKey="id"
+             [rows]="10"
+             [showCurrentPageReport]="true"
+             [rowsPerPageOptions]="[5,10, 25, 50,100]"
+
+             selectionMode="single"
+
+             [paginator]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} hasta {totalRecords} controles"
+             [globalFilterFields]="['RUTVISITA', 'NOMBREVISITA','MOTIVOVISITA']">
+      <ng-template pTemplate="caption">
+        <div class="flex">
+
+          <ion-icon name="cloud-download-outline" (click)="exportExcel()"></ion-icon>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th >
+            <div class="flex align-items-center">
+              RUT
+              <p-columnFilter
+                type="text"
+                field="RUTVISITA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+
+          <th pResizableColumn><div class="flex align-items-center">
+            NOMBRE
+            <p-columnFilter
+              type="text"
+              field="NOMBREVISITA"
+              display="menu"
+            ></p-columnFilter>
+          </div></th>
+          <th >
+            <div class="flex align-items-center">
+              MOTIVO
+              <p-columnFilter
+                type="text"
+                field="MOTIVOVISITA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th >
+            <div class="flex align-items-center">
+              PATENTE
+              <p-columnFilter
+                type="text"
+                field="PATENTEVEHICULO"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th >
+            <div class="flex align-items-center">
+              FECHA
+              <p-columnFilter
+                type="text"
+                field="FECHAINGRESO"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th >
+            <div class="flex align-items-center">
+              HORA
+              <p-columnFilter
+                type="text"
+                field="HORAINGRESO"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th >
+            <div class="flex align-items-center">
+              SALIDA
+              <p-columnFilter
+                type="text"
+                field="FECHASALIDA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th >
+            <div class="flex align-items-center">
+              HORA SALIDA
+              <p-columnFilter
+                type="text"
+                field="HORASALIDA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th >
+            <div class="flex align-items-center">
+              NROGUIA
+              <p-columnFilter
+                type="text"
+                field="NROGUIA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th >
+            <div class="flex align-items-center">
+              ZONA
+              <p-columnFilter
+                type="text"
+                field="ZONA"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-motivo>
+        <tr>
+          <td>{{ motivo.RUTVISITA}}</td>
+          <td>{{ motivo.NOMBREVISITA }}</td>
+          <td>{{ motivo.MOTIVOVISITA }}</td>
+          <td>{{ motivo.PATENTEVEHICULO }}</td>
+          <td>{{ motivo.FECHAINGRESO }}</td>
+          <td>{{ motivo.HORAINGRESO }}</td>
+          <td>{{ motivo.FECHASALIDA }}</td>
+          <td>{{ motivo.HORASALIDA }}</td>
+          <td>{{ motivo.NROGUIA }}</td>
+          <td>{{ motivo.zona.NAME }}</td>
+
+          <td>
+            <button type="button" pButton pRipple icon="pi pi-plus" ></button>
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">Sin controles encontradas</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </p-panel>
+
+</ion-content>

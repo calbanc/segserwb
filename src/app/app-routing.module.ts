@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
- 
+
   {
     path: '',
     redirectTo: 'home',
@@ -45,10 +45,44 @@ const routes: Routes = [
     loadChildren: () => import('./supervisor/tecnicalreport/tecnicalreport.module').then( m => m.TecnicalreportPageModule)
   },
   {
+    path: 'guardias',
+    loadChildren: () => import('./supervisor/guardias/guardias.module').then( m => m.GuardiasPageModule)
+  },
+  {
+    path: 'reporterondascliente',
+    loadChildren: () => import('./reporterondascliente/reporterondascliente.module').then( m => m.ReporterondasclientePageModule)
+  },
+
+  {
+    path: 'controlacceso',
+    loadChildren: () => import('./supervisor/controlacceso/controlacceso.module').then( m => m.ControlaccesoPageModule)
+  },
+  {
+    path: 'trabajadores',
+    loadChildren: () => import('./supervisor/trabajadores/trabajadores.module').then( m => m.TrabajadoresPageModule)
+  },
+  
+  {
+    path: 'informetrabajadores',
+    loadChildren: () => import('./supervisor/informetrabajadores/informetrabajadores.module').then( m => m.InformetrabajadoresPageModule)
+  },
+  {
+    path: 'reportetrabajadorcontratista',
+    loadChildren: () => import('./supervisor/contratistas/reportetrabajadorcontratista/reportetrabajadorcontratista.module').then( m => m.ReportetrabajadorcontratistaPageModule)
+  },
+  
+  {
+    path: 'reportemensual',
+    loadChildren: () => import('./supervisor/reportemensual/reportemensual.module').then( m => m.ReportemensualPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full'
   }
+  
+  
+
 
 ];
 

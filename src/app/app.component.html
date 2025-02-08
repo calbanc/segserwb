@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start" menuId="first" contentId="main">
+  <ion-menu side="start" menuId="first" contentId="main" >
     <ion-header>
        <ion-toolbar color="primary">
          <ion-title>Menu</ion-title>
@@ -11,30 +11,64 @@
 
               <ion-menu-toggle>
 
-                <ion-item  routerLink="/usuarios">
+
+                <ion-item  routerLink="/usuarios" *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/user.svg"></ion-icon>
                   <ion-label>Usuarios</ion-label>
                 </ion-item>
-                <ion-item  routerLink="/clients">
+                <ion-item  routerLink="/guardias" *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/gs.svg"></ion-icon>
+                  <ion-label>Guardias</ion-label>
+                </ion-item>
+                <ion-item  routerLink="/clients"  *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/client.svg"></ion-icon>
                   <ion-label>Clientes</ion-label>
                 </ion-item>
-                <ion-item  routerLink="/zone">
+                <ion-item  routerLink="/controlacceso"  *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/controlacceso.svg"></ion-icon>
+                  <ion-label>Control Acceso</ion-label>
+                </ion-item>
+                <ion-item  routerLink="/zone" *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/zone.svg"></ion-icon>
                   <ion-label>Zonas</ion-label>
                 </ion-item>
-                <ion-item  routerLink="/point">
+                <ion-item  routerLink="/point" *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/point.svg"></ion-icon>
                   <ion-label>Puntos de Control</ion-label>
                 </ion-item>
-                <ion-item  routerLink="/guards">
+                <ion-item  routerLink="/trabajadores" *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/trabajadores.svg"></ion-icon>
+                  <ion-label>Trabajadores</ion-label>
+                </ion-item>
+                <ion-item  routerLink="/reportemensual" *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/reportemes.svg"></ion-icon>
+                  <ion-label>Reporte Mensual</ion-label>
+                </ion-item>
+                <ion-item  routerLink="/informetrabajadores" *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/trabajadores.svg"></ion-icon>
+                  <ion-label> Informe Trabajadores</ion-label>
+                </ion-item>
+                <ion-item  routerLink="/reportetrabajadorcontratista" *ngIf="role==='SUPERVISOR' ">
+                  <ion-icon slot="start" src="../assets/icons/trabajadores.svg"></ion-icon>
+                  <ion-label> Informe Trabajadores Contratistas</ion-label>
+                </ion-item>
+
+                
+
+                <ion-item  routerLink="/guards" *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/guards.svg"></ion-icon>
                   <ion-label>Informe de Guardias</ion-label>
                 </ion-item>
-                 <ion-item  routerLink="/tecnicalreport">
+                 <ion-item  routerLink="/tecnicalreport" *ngIf="role==='SUPERVISOR' ">
                   <ion-icon slot="start" src="../assets/icons/report.svg"></ion-icon>
                   <ion-label>Informe Tecnico Rondas</ion-label>
-                </ion-item> 
+
+
+                </ion-item>
+                <ion-item  routerLink="/reporterondascliente" *ngIf="role==='CLIENTE' ">
+                  <ion-icon slot="start" src="../assets/icons/guards.svg"></ion-icon>
+                  <ion-label>Informe de Guardias</ion-label>
+                </ion-item>
                     <ion-item  >
                       <ion-icon slot="start" name="log-out-outline" ></ion-icon>
                       <ion-label  (click)="cerrarsesion()"  detail >Cerrar Sesion</ion-label>
@@ -46,8 +80,9 @@
           </ion-list>
      </ion-content>
 
-   </ion-menu>
+  </ion-menu>
 
 
   <ion-router-outlet id="main"></ion-router-outlet>
+
 </ion-app>

@@ -3,6 +3,8 @@ import { Usuario } from '../models/usuario';
 import { UserService } from '../services/UserService.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Route, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -10,6 +12,7 @@ import { Route, Router } from '@angular/router';
 })
 export class HomePage {
   public usuario:Usuario;
+  
 
   constructor(
     public usuarioService:UserService,
@@ -24,12 +27,29 @@ export class HomePage {
   }
   validarislogin(){
     
-    localStorage.getItem('TOKEN');
+    const token=localStorage.getItem('TOKEN')!;
+    if(token!=null) {
+      const isexpired= Date.now()>=jwtDecode(token).exp! *1000 ;
+      
+      if(isexpired==true){
+        localStorage.removeItem('TOKEN');
+        localStorage.removeItem('LOGIN');
+        localStorage.removeItem('IDCOMPANY');
+        localStorage.removeItem('ROLE');
+        
+        this._route.navigate(['home']);
+      }  
+    }
+    
+
+
+    
     let role=localStorage.getItem('ROLE');
 
-    if(role=='SUPERVISOR'){
-      this._route.navigate(['main']);
-    }
+    
+    role=='SUPERVISOR' ? this._route.navigate(['main']) : role=='CLIENTE' ? this._route.navigate(['main']) : null;
+  //  role=='SUPERVISOR' ? this._route.navigate(['main']) : null;
+    
   }
 
   async validausuario(){
@@ -70,21 +90,16 @@ export class HomePage {
           localStorage.setItem('IDCOMPANY',idcompanyuser);
           localStorage.setItem('ROLE',role);
           localStorage.setItem('LOGIN','YES');
-
-
-          if(role=="SUPERVISOR"){
+          if(role=="SUPERVISOR" || role=="CLIENTE"){
             this._route.navigate(['main']);
           }else{
-            if(role=="CLIENTE"){
-              this._route.navigate
-            }else{
               localStorage.removeItem('TOKEN');
               localStorage.removeItem('LOGIN');
               localStorage.removeItem('IDCOMPANY');
               localStorage.removeItem('ROLE');
               this.presentAlert('NO TIENE PERMISOS PARA USAR LA PLATAFORMA');
               //NO TIENE PERMISOS PARA USAR LA PLATAFORMA
-            }
+            
           }
 
         }

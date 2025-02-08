@@ -1,0 +1,16 @@
+<ion-toolbar>
+
+  <ion-buttons slot="start">
+    <ion-button color="dark" (click)="salir()">
+      <ion-icon name="chevron-back-outline" text="Back" color="primary" mode="ios">Back</ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="ion-text-capitalize">Mapa de punto de control</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  
+    <div id="map">
+    </div>
+  
+</ion-content>

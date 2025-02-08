@@ -106,5 +106,7 @@ export class GuardsPage implements OnInit {
     )
     
   }
-
+  notificar(){
+    
+  }
 }

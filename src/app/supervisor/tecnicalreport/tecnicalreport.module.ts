@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TecnicalreportPageRoutingModule } from './tecnicalreport-routing.module';
 
 import { TecnicalreportPage } from './tecnicalreport.page';
+import { PrimemodulesModule } from '../primemodules/primemodules.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TecnicalreportPageRoutingModule
+    TecnicalreportPageRoutingModule,
+    PrimemodulesModule
   ],
   declarations: [TecnicalreportPage]
 })

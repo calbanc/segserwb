@@ -1,0 +1,298 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Trabajadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6">
+  
+          <p-dropdown 
+          [options]="clients"
+          [style]="{ width: '25rem' }"
+          [(ngModel)]="trabjadores.idcliente" 
+          optionLabel="NAME" 
+          optionValue="ID"
+          placeholder="Selecciona cliente" 
+          variant="filled"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="38"
+
+          
+          />
+  
+  
+        </ion-col>
+        <ion-col size="6">
+          <ion-button (click)="mostrartrabajadores()" >Mostrar</ion-button>
+        </ion-col>
+      </ion-row>
+
+      
+    </ion-grid>
+    <p-panel header="Listado de trabajadores"  [style]="{width:'90%' , margin:'0 auto'}" >
+     <ion-button (click)="abrirmodal()">Nuevo trabajador</ion-button>
+     
+     
+      <p-table #dt [value]="resttrabajadores"
+               dataKey="id"
+               [rows]="10"
+               [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="[5,10, 25, 50,100]"
+                
+               selectionMode="single"
+               styleClass="p-datatable-gridlines" 
+               [paginator]="true"
+               currentPageReportTemplate="Mostrando {first} de {last} hasta {totalRecords} trabajadores"
+               [globalFilterFields]="['rut', 'nombre','apellidopaterno','apellidomaterno','cargo','area','nfc','qr']">
+        <ng-template pTemplate="header">
+          <div class="flex">
+  
+            <ion-icon name="cloud-download-outline"></ion-icon>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th >
+              <div class="flex align-items-center">
+                Rut
+                <p-columnFilter
+                  type="text"
+                  field="rut"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+  
+  
+            <th pResizableColumn><div class="flex align-items-center">
+              Nombre
+              <p-columnFilter
+                type="text"
+                field="nombres"
+                display="menu"
+              ></p-columnFilter>
+            </div></th>
+            <th >
+              <div class="flex align-items-center">
+                Apellid Paterno
+                <p-columnFilter
+                  type="text"
+                  field="apellidopaterno"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                Apellido Materno
+                <p-columnFilter
+                  type="text"
+                  field="apellidomaterno"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                Cargo
+                <p-columnFilter
+                  type="text"
+                  field="cargo"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                Area
+                <p-columnFilter
+                  type="text"
+                  field="area"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                Nfc
+                <p-columnFilter
+                  type="text"
+                  field="nfc"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                Qr
+                <p-columnFilter
+                  type="text"
+                  field="qr"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+  
+  
+            
+  
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-resttrabajadores>
+          <tr>
+            <td>{{ resttrabajadores.rut}}</td>
+            <td>{{ resttrabajadores.nombres}}</td>
+            <td>{{ resttrabajadores.apellidopaterno}}</td>
+            <td>{{ resttrabajadores.apellidomaterno}}</td>
+            <td>{{ resttrabajadores.cargo}}</td>
+            <td>{{ resttrabajadores.area}}</td>
+            <td>{{ resttrabajadores.nfc}}</td>
+            <td>{{ resttrabajadores.qr}}</td>
+            <td>
+
+              <ion-button size="small" (click)="openNew(resttrabajadores,true)" >
+                <ion-icon  name="create-outline"></ion-icon>
+              </ion-button>
+              
+          </td>
+  
+         
+  
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">Sin trabajadores encontradas</td>
+          </tr>
+        </ng-template>
+      </p-table>
+  
+    </p-panel>
+  
+    <form #newuser="ngForm">
+      <p-dialog header="Trabajador" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+      <span class="p-text-secondary block mb-5">Crear nuevo trabajador</span>
+      <div class="flex align-items-center gap-2 mb-3">
+        <label for="rut" class="font-semibold w-6rem">Rut</label>
+        <input  required
+         pInputText 
+         name="rut" 
+         placeholder="Ingrese rut "  
+         #rut="ngModel" 
+         id="rut" 
+         class="flex-auto" 
+         autocomplete="off"  
+         [(ngModel)]="trabjadores.rut"
+          [readOnly]="editing" 
+          required />
+
+        <small
+          *ngIf="rut.invalid && (rut.dirty || rut.touched)"
+          class="block p-error">
+          <div >Rut es requerido.</div>
+
+        </small>
+        <div>
+
+        </div>
+
+      </div>
+      
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="name" class="font-semibold w-6rem">Nombre</label>
+        <input 
+        pInputText 
+        id="name" 
+        name="nombre" 
+        #nombre="ngModel"
+        class="flex-auto" 
+        autocomplete="off"  
+        [(ngModel)]="trabjadores.nombres" 
+        required />
+        <small
+          *ngIf="nombre.invalid && (nombre.dirty ||  nombre.touched)"
+          class="block p-error">
+          <div >Debe ingresar un Nombre</div>
+
+        </small>
+      </div>
+
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="apellidopaterno" class="font-semibold w-6rem">Apellido Paterno</label>
+        <input pInputText id="apellidopaterno" name="apellidopaterno" #apellidopaterno="ngModel" class="flex-auto" autocomplete="off"  [(ngModel)]="trabjadores.apellidopaterno" required/>
+        <small
+          *ngIf="apellidopaterno.invalid && (apellidopaterno.dirty || apellidopaterno.touched)"
+          class="block p-error">
+          <div >Debe ingresar un Apellido paterno</div>
+
+        </small>
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="apellidomaterno" class="font-semibold w-6rem">Apellido Materno</label>
+        <input pInputText id="apellidomaterno" name="apellidomaterno" #apellidomaterno="ngModel"  class="flex-auto" autocomplete="off"   [(ngModel)]="trabjadores.apellidomaterno" required/>
+        <small
+          *ngIf="apellidomaterno.invalid && (apellidomaterno.dirty || apellidomaterno.touched)"
+          class="block p-error">
+          <div >Debe ingresar un Apellido materno</div>
+
+        </small>
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="apellidomaterno" class="font-semibold w-6rem">Cargo</label>
+          <input pInputText id="cargo" name="cargo" #cargo="ngModel"  class="flex-auto" autocomplete="off"   [(ngModel)]="trabjadores.cargo" />
+          
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="area" class="font-semibold w-6rem">Area</label>
+          <input pInputText id="area" name="area" #area="ngModel"  class="flex-auto" autocomplete="off"   [(ngModel)]="trabjadores.area" />
+       
+        </div>
+        <div class="flex align-items-center gap-3 mb-3">
+          <label for="nfc" class="font-semibold w-6rem">Nfc</label>
+          <input pInputText id="nfc" name="nfc" #nfc="ngModel"  class="flex-auto" autocomplete="off"   [(ngModel)]="trabjadores.nfc" required/>
+          <small
+            *ngIf="nfc.invalid && (nfc.dirty || nfc.touched)"
+            class="block p-error">
+            <div >Debe ingresar un nfc code</div>
+  
+          </small>
+        </div>
+
+        <div class="flex align-items-center gap-3 mb-3"></div>
+          <label for="qr" class="font-semibold w-6rem">Qr</label>
+          <input pInputText id="qr" name="qr" #qr="ngModel"  class="flex-auto" autocomplete="off"   [(ngModel)]="trabjadores.qr" required/>
+          <small
+            *ngIf="qr.invalid && (qr.dirty || qr.touched)"
+            class="block p-error">
+            <div >Debe ingresar un qr code</div>
+  
+          </small>
+        </div>
+      
+      <div class="flex justify-content-end gap-2">
+        <ion-button *ngIf="!editing" [disabled]="newuser.invalid!" (click)="savetrabajador($event)" >Guardar</ion-button> 
+        <ion-button *ngIf="editing"  color="danger" (click)="eliminartrabajador()" >Eliminar</ion-button> 
+        <ion-button *ngIf="editing"  color="primary" [disabled]="newuser.invalid!" (click)="edittrabajador()" >Editar</ion-button> 
+        
+
+      </div>
+
+   
+        <!-- <p-messages ></p-messages> -->
+      </p-dialog>
+    </form>
+
+
+
+  
+</ion-content>

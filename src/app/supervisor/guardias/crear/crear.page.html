@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="salir()">
+        <ion-icon name="chevron-back-outline" text="Back" color="primary" mode="ios">Back</ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" color="light">
+
+  <form #clienteregisterform="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="nombre" #nombre="ngModel" [(ngModel)]="guardias.NAME" type="text" placeholder="Ingrese Nombre de guardia" label="Nombre" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="apellido" #apellido="ngModel" [(ngModel)]="guardias.LASTNAME" type="text" placeholder="Ingrese Apellido de guardia" label="Apellido" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="telefono" #telefono="ngModel" [(ngModel)]="guardias.TELEFONO" type="text" placeholder="Ingrese Telefono de guardia" label="Telefono" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12">
+          <ion-input name="tag" #tag="ngModel" [(ngModel)]="guardias.TAGNFC" type="text" placeholder="Ingrese Tag Nfc de guardia" label="Tag Nfc" label-placement="floating" fill="outline" mode="md" required></ion-input>
+        </ion-col>
+
+        <ion-col size="12" size-lg="3" size-md="4" size-sm="12" >
+          <ion-item>
+            <ion-select aria-label="Usuario" value="apple" interface="action-sheet" name="user" #userid="ngModel" [(ngModel)]="guardias.USERID" placeholder="Seleccione Usuario">
+              <ion-select-option *ngFor="let user of usuarios" [value]="user.ID">{{user.USERNAME}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-col>
+        <ion-col size="12" *ngIf="accion==='editar'">
+          <img src="{{url}}">
+        </ion-col>
+        <ion-col size="12" *ngFor="let file of images; let i = index">
+          <ion-card class="single-post-home">
+            <img [src]="file.data">
+            <ion-row>
+              <ion-col>
+                <button ion-button icon-start clear small  >
+                  <ion-icon name="trash"></ion-icon>
+                  <div>Eliminar</div>
+                </button>
+              </ion-col>
+
+            </ion-row>
+
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-lg="12" size-md="12" size-sm="12" >
+          <ion-button color="primary" expand="block" (click)="camara()">CAMARA</ion-button>
+
+        </ion-col>
+
+        <ion-col size="12" size-lg="12" size-md="12" size-sm="12" *ngIf="accion==='nuevo' " >
+          <ion-button color="success" expand="block" (click)="crear()">CREAR</ion-button>
+        </ion-col>
+        <ion-col size="6" size-lg="6" size-md="6" size-sm="6"  *ngIf="accion==='editar' ">
+          <ion-button color="warning" expand="block" (click)="editar()">Actualizar</ion-button>
+        </ion-col>
+        <ion-col size="6" size-lg="6" size-md="6" size-sm="6" *ngIf="accion==='editar' ">
+
+          <ion-button color="danger" expand="block" (click)="eliminar()">Eliminar</ion-button>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+
+
+
+
+</ion-content>

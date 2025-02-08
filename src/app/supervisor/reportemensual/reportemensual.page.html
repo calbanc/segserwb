@@ -1,0 +1,153 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main" text="Atras" color="primary" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">Reporte Mensual</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-sm="3" >
+          <p-calendar placeholder="Desde" dateFormat="dd/mm/yy" [(ngModel)]="informemes.fechadesde" />
+        </ion-col>
+        <ion-col size="12" size-sm="3" >
+          <p-calendar placeholder="Hasta" dateFormat="dd/mm/yy" [(ngModel)]="informemes.fechahasta" />
+        </ion-col>
+        <ion-col size="12" size-sm="3" ><p-dropdown 
+          [options]="clients" 
+          [(ngModel)]="informemes.idcliente" 
+          optionLabel="NAME" 
+          optionValue="ID"
+          placeholder="Cliente" /></ion-col>
+        <ion-col size="12" size-sm="3" >
+          <ion-button color="success" (click)="mostrarreporte()">Mostrar</ion-button>
+        </ion-col>
+        <ion-col size="12" size-sm="3" >
+          <ion-button color="success" (click)="descargar()">Mostrar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    
+
+
+
+
+
+    <p-table #dt [value]="guardias"
+               dataKey="id"
+               [rows]="10"
+               [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="[5,10, 25, 50,100]"
+                
+               selectionMode="single"
+               styleClass="p-datatable-gridlines" 
+               [paginator]="true"
+               currentPageReportTemplate="Mostrando {first} de {last} hasta {totalRecords} guardias"
+               [globalFilterFields]="['DATE', 'TIME','PUNTOCONTROL','RONDIN','ZONA','OBSERVATION']">
+        <ng-template pTemplate="header">
+          <div class="flex">
+  
+            <ion-icon name="cloud-download-outline"></ion-icon>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th >
+              <div class="flex align-items-center">
+                FECHA
+                <p-columnFilter
+                  type="text"
+                  field="DATE"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+  
+  
+            <th pResizableColumn><div class="flex align-items-center">
+              HORA
+              <p-columnFilter
+                type="text"
+                field="TIME"
+                display="menu"
+              ></p-columnFilter>
+            </div></th>
+            <th >
+              <div class="flex align-items-center">
+                PUNTO DE CONTROL
+                <p-columnFilter
+                  type="text"
+                  field="PUNTOCONTROL"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                RONDIN
+                <p-columnFilter
+                  type="text"
+                  field="RONDIN"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                ZONA
+                <p-columnFilter
+                  type="text"
+                  field="ZONA"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+            <th >
+              <div class="flex align-items-center">
+                OBSERVACION
+                <p-columnFilter
+                  type="text"
+                  field="OBSERVATION"
+                  display="menu"
+                ></p-columnFilter>
+              </div>
+            </th>
+           
+  
+  
+            
+  
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-resttrabajadores>
+          <tr>
+            <td>{{ resttrabajadores.DATE}}</td>
+            <td>{{ resttrabajadores.TIME}}</td>
+            <td>{{ resttrabajadores.PUNTOCONTROL}}</td>
+            <td>{{ resttrabajadores.RONDIN}}</td>
+            <td>{{ resttrabajadores.ZONA}}</td>
+            <td>{{ resttrabajadores.OBSERVATION}}</td>
+            
+            <td>
+
+              
+          </td>
+  
+         
+  
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">Sin rondas encontradas</td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </div>
+
+</ion-content>
